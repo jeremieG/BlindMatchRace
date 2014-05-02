@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="30"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher2" />
 
     <TextView
         android:id="@+id/tvTitle"
