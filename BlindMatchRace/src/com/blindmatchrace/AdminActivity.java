@@ -2,18 +2,9 @@ package com.blindmatchrace;
 
 import java.text.DecimalFormat;
 
-import com.blindmatchrace.classes.C;
-import com.blindmatchrace.classes.SendDataHThread;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.location.Criteria;
 import android.location.Location;
@@ -28,6 +19,17 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.blindmatchrace.classes.C;
+import com.blindmatchrace.classes.SendDataHThread;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Administrator activity. Shows a google map with option to add buoys on it.
@@ -122,11 +124,25 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
+		/*super.onBackPressed();
 
 		// Disables the location changed code.
 		disableLocation = true;
-		finish();
+		finish();*/
+		new AlertDialog.Builder(this)
+		.setTitle("Really Exit?")
+		.setMessage("Are you sure you want to exit?")
+		.setNegativeButton(android.R.string.no, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface arg0, int arg1) {
+				AdminActivity.super.onBackPressed();
+
+				// Disables the location changed code.
+				disableLocation = true;
+				finish();
+			}
+		}).create().show();
 	}
 
 	@Override

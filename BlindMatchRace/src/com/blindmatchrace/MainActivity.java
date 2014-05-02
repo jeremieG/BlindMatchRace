@@ -4,20 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.blindmatchrace.classes.C;
-import com.blindmatchrace.classes.GetBuoysTask;
-import com.blindmatchrace.classes.GetSailorsTask;
-import com.blindmatchrace.classes.SendDataHThread;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.location.Criteria;
@@ -32,6 +18,20 @@ import android.support.v4.app.FragmentManager;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.blindmatchrace.classes.C;
+import com.blindmatchrace.classes.GetBuoysTask;
+import com.blindmatchrace.classes.GetSailorsTask;
+import com.blindmatchrace.classes.SendDataHThread;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Main activity. Shows a google map with the sailors, buoys and current position.

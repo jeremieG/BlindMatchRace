@@ -6,14 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.blindmatchrace.classes.C;
-import com.blindmatchrace.classes.SendDataHThread;
-import com.blindmatchrace.modules.JsonReader;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -31,6 +29,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.blindmatchrace.classes.C;
+import com.blindmatchrace.classes.SendDataHThread;
+import com.blindmatchrace.modules.JsonReader;
 
 /**
  * Login activity. Allows the user to log in or register to DB.
@@ -143,8 +145,19 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
+		/*super.onBackPressed();
+		finish();*/
+		new AlertDialog.Builder(this)
+		.setTitle("Really Exit?")
+		.setMessage("Are you sure you want to exit?")
+		.setNegativeButton(android.R.string.no, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface arg0, int arg1) {
+				LoginActivity.super.onBackPressed();
+				finish();
+			}
+		}).create().show();
 	}
 
 	@Override

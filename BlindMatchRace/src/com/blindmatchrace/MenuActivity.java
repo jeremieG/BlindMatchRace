@@ -1,18 +1,20 @@
 package com.blindmatchrace;
 
-import com.blindmatchrace.classes.C;
-import com.blindmatchrace.classes.SaveKmlTask;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.blindmatchrace.classes.C;
+import com.blindmatchrace.classes.SaveKmlTask;
 
 /**
  * Menu activity. Shows the menu screen.
@@ -65,8 +67,19 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
+		/*super.onBackPressed();
+		finish();*/
+		new AlertDialog.Builder(this)
+		.setTitle("Really Exit?")
+		.setMessage("Are you sure you want to exit?")
+		.setNegativeButton(android.R.string.no, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface arg0, int arg1) {
+				MenuActivity.super.onBackPressed();
+				finish();
+			}
+		}).create().show();
 	}
 
 	@Override

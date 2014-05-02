@@ -15,13 +15,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.blindmatchrace.modules.JsonReader;
-import com.google.android.gms.maps.model.LatLng;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.blindmatchrace.modules.JsonReader;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * AsyncTask for saving the KML file on SD memory.
