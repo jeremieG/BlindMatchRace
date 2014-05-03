@@ -4,7 +4,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.location.Criteria;
 import android.location.Location;
@@ -68,6 +70,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	/**
 	 * Initialize components.
 	 */
+	@SuppressWarnings("deprecation")
 	private void initialize() {
 		// The user name, password and event number connected to the application.
 		user = getIntent().getStringExtra(C.USER_NAME);
@@ -82,6 +85,34 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		String provider = locationManager.getBestProvider(criteria, true);
 		locationManager.requestLocationUpdates(provider, C.MIN_TIME, C.MIN_DISTANCE, this);
 
+		// getting GPS & network status
+		boolean isGPSEnabled = locationManager .isProviderEnabled(LocationManager.GPS_PROVIDER);
+		boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+		if (!isGPSEnabled||!isNetworkEnabled){
+			final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			if (!isGPSEnabled&&!isNetworkEnabled){
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your GPS and Network connections are disabled");
+			}
+			else if(!isGPSEnabled){
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your GPS connection are disabled");
+			}
+			else {
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your Network connection are disabled");
+			}
+			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					// here you can add functions
+					alertDialog.dismiss();
+				}
+			});
+			alertDialog.setIcon(R.drawable.common_signin_btn_text_disabled_dark);
+			alertDialog.show();
+		}
+		
 		// Initialize map.
 		FragmentManager fm = getSupportFragmentManager();
 		googleMap = ((SupportMapFragment) fm.findFragmentById(R.id.map)).getMap();

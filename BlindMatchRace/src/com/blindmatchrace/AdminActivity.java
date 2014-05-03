@@ -65,6 +65,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 	/**
 	 * Initialize components.
 	 */
+	@SuppressWarnings("deprecation")
 	private void initialize() {
 		// The user name and event number connected to the application.
 		user = getIntent().getStringExtra(C.USER_NAME);
@@ -81,6 +82,34 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 		FragmentManager fm = getSupportFragmentManager();
 		googleMap = ((SupportMapFragment) fm.findFragmentById(R.id.map)).getMap();
 
+		// getting GPS & network status
+		boolean isGPSEnabled = locationManager .isProviderEnabled(LocationManager.GPS_PROVIDER);
+		boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+		if (!isGPSEnabled||!isNetworkEnabled){
+			final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			if (!isGPSEnabled&&!isNetworkEnabled){
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your GPS and Network connections are disabled");
+			}
+			else if(!isGPSEnabled){
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your GPS connection are disabled");
+			}
+			else {
+				alertDialog.setTitle("Warning !");
+				alertDialog.setMessage("Your Network connection are disabled");
+			}
+			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					// here you can add functions
+					alertDialog.dismiss();
+				}
+			});
+			alertDialog.setIcon(R.drawable.common_signin_btn_text_disabled_dark);
+			alertDialog.show();
+		}
+		
 		// Adds location button in the top-right screen.
 		googleMap.setMyLocationEnabled(true);
 
