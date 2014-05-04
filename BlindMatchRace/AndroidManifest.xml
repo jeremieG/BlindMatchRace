@@ -35,6 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity android:name="com.blindmatchrace.MenuActivity" >
+		</activity>
 
         <!-- API Key using my PC -->
         <!-- <meta-data
@@ -42,12 +44,13 @@
             android:value="AIzaSyAbk57eU-y_eB3ywDZanb5pAh-qOEGQB0o" /> -->
             
         <!-- API Key using my Laptop -->
-        <meta-data
+        <!-- <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBLRp4IgfFjra9HiCEnrqaHHgOC7akaC_I" />
+            android:value="AIzaSyBLRp4IgfFjra9HiCEnrqaHHgOC7akaC_I" /> -->
+        <meta-data
+                android:name="com.google.android.maps.v2.API_KEY"
+                android:value="AIzaSyCaPZS2-AD7yof7aSjloB3xBOTERto7P6s" />
 
-        <activity android:name="com.blindmatchrace.MenuActivity" >
-        </activity>
     </application>
 
 </manifest>
