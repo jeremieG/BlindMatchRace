@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Criteria;
 import android.location.Location;
@@ -65,7 +66,6 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 	/**
 	 * Initialize components.
 	 */
-	@SuppressWarnings("deprecation")
 	private void initialize() {
 		// The user name and event number connected to the application.
 		user = getIntent().getStringExtra(C.USER_NAME);
@@ -84,32 +84,53 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 
 		// getting GPS & network status
 		boolean isGPSEnabled = locationManager .isProviderEnabled(LocationManager.GPS_PROVIDER);
-		boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+		boolean isNetworkAvailable = MainActivity.isNetworkAvailable(this);
 
-		if (!isGPSEnabled||!isNetworkEnabled){
-			final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			if (!isGPSEnabled&&!isNetworkEnabled){
-				alertDialog.setTitle("Warning !");
-				alertDialog.setMessage("Your GPS and Network connections are disabled");
+		if (!isGPSEnabled || !isNetworkAvailable){
+			if (!isGPSEnabled && !isNetworkAvailable){
+				new AlertDialog.Builder(this)
+				.setTitle("Warning !")
+				.setMessage("Your GPS & Network connections are disabled")
+				.setNegativeButton(android.R.string.cancel, null)
+				.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+					}
+				}).create().show();
 			}
 			else if(!isGPSEnabled){
-				alertDialog.setTitle("Warning !");
-				alertDialog.setMessage("Your GPS connection are disabled");
+				new AlertDialog.Builder(this)
+				.setTitle("Warning !")
+				.setMessage("Your GPS connection is disabled")
+				.setNegativeButton(android.R.string.cancel, null)
+				.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+					}
+				}).create().show();
 			}
 			else {
-				alertDialog.setTitle("Warning !");
-				alertDialog.setMessage("Your Network connection are disabled");
+				new AlertDialog.Builder(this)
+				.setTitle("Warning !")
+				.setMessage("Your Network connection is disabled")
+				.setNegativeButton(android.R.string.cancel, null)
+				.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						startActivity(new Intent(android.provider.Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
+					}
+				}).create().show();
 			}
-			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					// here you can add functions
-					alertDialog.dismiss();
-				}
-			});
-			alertDialog.setIcon(R.drawable.common_signin_btn_text_disabled_dark);
-			alertDialog.show();
 		}
-		
+
 		// Adds location button in the top-right screen.
 		googleMap.setMyLocationEnabled(true);
 

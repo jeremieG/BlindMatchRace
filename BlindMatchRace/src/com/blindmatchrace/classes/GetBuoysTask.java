@@ -21,7 +21,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -92,14 +91,14 @@ public class GetBuoysTask extends AsyncTask<String, Integer, Map<String, LatLng>
 					// Adds a buoy on the google map.
 					latLng = new LatLng(buoyLatLng.latitude, buoyLatLng.longitude);
 					googleMap.addMarker(new MarkerOptions().position(latLng).title(buoyName + "\nClick to remove").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
-					googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+					/*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 						
 						@Override
 						public boolean onMarkerClick(Marker marker) {
 							marker.remove();
 							return false;
 						}
-					});
+					});*/
 					// Adds circles/radiuses around each buoy on the google map.
 					buoyRadiuses[j++] = googleMap.addCircle(new CircleOptions()
 					.center(latLng)
