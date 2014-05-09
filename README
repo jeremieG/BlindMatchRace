@@ -1,7 +1,19 @@
 !! These instructions complete the manual given by the programmers of the original app (Blind Match Race Project.pdf) !!
 
+Git repo: https://github.com/jeremieG/BlindMatchRace
 
 Instructions :
+- "GPS/Internet connection reminder" KILLER message
+	
+	After you login, if you're GPS isn't enabled and/or you are not connected to the internet, a dialog will pop-up
+	to remind it to you.
+
+step 1: Thank the app for the reminder (in your head or aloud).
+step 2: Choose wether you want to use the app as meant to or if you're just fooling around
+step 3: If you actually want to use the app for a race-y purpose, touch the "Settings" button
+step 4: Thank the app for taking you exactly where you need in order to enable missing feature (in your head or aloud)
+step 5: Enable it (duh !!)
+step 6: touch back to get back to the app and enjoy your sea-time sport delight.
 
 - "Back" button SAMURAI MODIFICATIONS (while in the user activity window)
 
