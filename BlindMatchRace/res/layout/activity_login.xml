@@ -85,36 +85,54 @@
             android:maxLines="1"
             android:singleLine="true" />
 
-        <Button
-            android:id="@+id/bSignIn"
-            style="@style/button_text"
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-            android:layout_gravity="right"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/b_red"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:text="@string/action_sign_in" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/bReg"
-            style="@style/button_text"
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-            android:layout_gravity="right"
-            android:background="@drawable/b_red"
-            android:text="@string/action_register" />
+            <TextView
+                android:id="@+id/tvNewUser"
+                android:layout_width="282dp"
+                android:layout_height="53dp"
+                android:layout_alignBottom="@+id/bReg"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/bReg"
+                android:layout_toLeftOf="@id/bReg"
+                android:gravity="bottom|right"
+                android:text="@string/note_new_user"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvNewUser"
-            android:layout_width="282dp"
-            android:layout_height="53dp"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:text="@string/note_new_user" />
+            <Button
+                android:id="@+id/bSignIn"
+                style="@style/button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/tvNewUser"
+                android:background="@drawable/b_red"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="0"
+                android:text="@string/action_sign_in"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/bReg"
+                style="@style/button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/bSignIn"
+                android:background="@drawable/b_red"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="0"
+                android:text="@string/action_register"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

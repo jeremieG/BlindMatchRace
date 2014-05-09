@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -43,6 +44,8 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 	private LocationManager locationManager;
 	private boolean firstUse = true;
 	private boolean disableLocation = false;
+	private Marker[] markArr;
+	private boolean[] greyedOut;
 
 	// Views.
 	private Marker currentPosition;
@@ -169,7 +172,13 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 		bBuoy7.setOnClickListener(this);
 		bBuoy8.setOnClickListener(this);
 		bBuoy9.setOnClickListener(this);
-		bBuoy10.setOnClickListener(this);		
+		bBuoy10.setOnClickListener(this);
+
+		markArr = new Marker[10];
+		greyedOut = new boolean[10];
+		for (int i = 0; i < markArr.length; i++) {
+			markArr[i] = null;
+		}
 	}
 
 	@Override
@@ -262,46 +271,248 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 		switch (v.getId()) {
 		case R.id.bBuoy1:
 			fullBuoyName = C.BUOY_PREFIX + "1_" + event;
-			bBuoy1.setEnabled(false);
+			//bBuoy1.setEnabled(false);
+			if(!greyedOut[0]) {
+				bBuoy1.setBackgroundColor(Color.GRAY);
+				greyedOut[0] = true;
+				addBuoy(fullBuoyName, 0);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #1 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[0].remove();
+						markArr[0] = null;
+						bBuoy1.setBackgroundColor(Color.WHITE);
+						greyedOut[0] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy2:
 			fullBuoyName = C.BUOY_PREFIX + "2_" + event;
-			bBuoy2.setEnabled(false);
+			//bBuoy2.setEnabled(false);
+			if(!greyedOut[1]) {
+				bBuoy2.setBackgroundColor(Color.GRAY);
+				greyedOut[1] = true;
+				addBuoy(fullBuoyName, 1);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #2 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[1].remove();
+						markArr[1] = null;
+						bBuoy2.setBackgroundColor(Color.WHITE);
+						greyedOut[1] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy3:
 			fullBuoyName = C.BUOY_PREFIX + "3_" + event;
-			bBuoy3.setEnabled(false);
+			//bBuoy3.setEnabled(false);
+			if(!greyedOut[2]) {
+				bBuoy3.setBackgroundColor(Color.GRAY);
+				greyedOut[2] = true;
+				addBuoy(fullBuoyName, 2);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #3 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[2].remove();
+						markArr[2] = null;
+						bBuoy3.setBackgroundColor(Color.WHITE);
+						greyedOut[2] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy4:
 			fullBuoyName = C.BUOY_PREFIX + "4_" + event;
-			bBuoy4.setEnabled(false);
+			//bBuoy4.setEnabled(false);
+			if(!greyedOut[3]) {
+				bBuoy4.setBackgroundColor(Color.GRAY);
+				greyedOut[3] = true;
+				addBuoy(fullBuoyName, 3);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #4 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[3].remove();
+						markArr[3] = null;
+						bBuoy4.setBackgroundColor(Color.WHITE);
+						greyedOut[3] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy5:
 			fullBuoyName = C.BUOY_PREFIX + "5_" + event;
-			bBuoy5.setEnabled(false);
+			//bBuoy5.setEnabled(false);
+			if(!greyedOut[4]) {
+				bBuoy5.setBackgroundColor(Color.GRAY);
+				greyedOut[4] = true;
+				addBuoy(fullBuoyName, 4);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #5 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[4].remove();
+						markArr[4] = null;
+						bBuoy5.setBackgroundColor(Color.WHITE);
+						greyedOut[4] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy6:
 			fullBuoyName = C.BUOY_PREFIX + "6_" + event;
-			bBuoy6.setEnabled(false);
+			//bBuoy6.setEnabled(false);
+			if(!greyedOut[5]) {
+				bBuoy6.setBackgroundColor(Color.GRAY);
+				greyedOut[5] = true;
+				addBuoy(fullBuoyName, 5);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #6 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[5].remove();
+						markArr[5] = null;
+						bBuoy6.setBackgroundColor(Color.WHITE);
+						greyedOut[5] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy7:
 			fullBuoyName = C.BUOY_PREFIX + "7_" + event;
-			bBuoy7.setEnabled(false);
+			//bBuoy7.setEnabled(false);
+			if(!greyedOut[6]) {
+				bBuoy7.setBackgroundColor(Color.GRAY);
+				greyedOut[6] = true;
+				addBuoy(fullBuoyName, 6);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #7 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[6].remove();
+						markArr[6] = null;
+						bBuoy7.setBackgroundColor(Color.WHITE);
+						greyedOut[6] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy8:
 			fullBuoyName = C.BUOY_PREFIX + "8_" + event;
-			bBuoy8.setEnabled(false);
+			//bBuoy8.setEnabled(false);
+			if(!greyedOut[7]) {
+				bBuoy8.setBackgroundColor(Color.GRAY);
+				greyedOut[7] = true;
+				addBuoy(fullBuoyName, 7);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #8 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[7].remove();
+						markArr[7] = null;
+						bBuoy8.setBackgroundColor(Color.WHITE);
+						greyedOut[7] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy9:
 			fullBuoyName = C.BUOY_PREFIX + "9_" + event;
-			bBuoy9.setEnabled(false);
+			//bBuoy9.setEnabled(false);
+			if(!greyedOut[8]) {
+				bBuoy9.setBackgroundColor(Color.GRAY);
+				greyedOut[8] = true;
+				addBuoy(fullBuoyName, 8);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #9 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[8].remove();
+						markArr[8] = null;
+						bBuoy9.setBackgroundColor(Color.WHITE);
+						greyedOut[8] = false;
+					}
+				}).create().show();
+			}
 			break;
 		case R.id.bBuoy10:
 			fullBuoyName = C.BUOY_PREFIX + "10_" + event;
-			bBuoy10.setEnabled(false);
+			//bBuoy10.setEnabled(false);
+			if(!greyedOut[9]) {
+				bBuoy10.setBackgroundColor(Color.GRAY);
+				greyedOut[9] = true;
+				addBuoy(fullBuoyName, 9);
+			}
+			else {
+				new AlertDialog.Builder(this)
+				.setTitle("Remove Marker?")
+				.setMessage("Do you want to remove buoy #10 from the map?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						markArr[9].remove();
+						markArr[9] = null;
+						bBuoy10.setBackgroundColor(Color.WHITE);
+						greyedOut[9] = false;
+					}
+				}).create().show();
+			}
 			break;
 		}
+	}
 
+	private void addBuoy(String fullBuoyName, int index) {
 		// HandlerThread for sending the buoy location to the DB through thread.
 		SendDataHThread thread = new SendDataHThread("SendBuoys");
 		thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -317,12 +528,10 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 		thread.setSpeed(speed);
 		thread.setBearing(bearing);
 		thread.setEvent(event);
-
 		thread.start();
-
 		// Adds a buoy on the map.
 		LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-		googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
+		markArr[index] = googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
 	}
 
 }

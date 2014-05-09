@@ -124,6 +124,8 @@ public class LoginActivity extends Activity {
 		llLoginStatus = findViewById(R.id.llLoginStatus);
 		tvLoginStatusMessage = (TextView) findViewById(R.id.tvLoginStatusMessage);
 
+		// Sign In button
+		findViewById(R.id.bSignIn).setEnabled(true);
 		findViewById(R.id.bSignIn).setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -133,6 +135,7 @@ public class LoginActivity extends Activity {
 		});
 
 		// Register button.
+		findViewById(R.id.bReg).setEnabled(true);
 		findViewById(R.id.bReg).setOnClickListener(new View.OnClickListener() {
 
 			@Override

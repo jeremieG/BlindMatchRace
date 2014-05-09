@@ -11,86 +11,94 @@
     android:weightSum="100"
     tools:context=".MenuActivity" >
 
-    <ImageView
-        android:id="@+id/ivLogo"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="30"
-        android:src="@drawable/ic_launcher_bg" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="20"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="5"
+            android:src="@drawable/ic_launcher_bg" />
 
-    <Button
-        android:id="@+id/bMap"
-        style="@style/button_text"
-        android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_gravity="center"
-        android:layout_weight="10"
-        android:background="@drawable/b_red"
-        android:gravity="center"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-        android:text="Open Map"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/bKml1"
-        style="@style/button_text"
-        android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_gravity="center"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-        android:layout_weight="10"
-        android:background="@drawable/b_red"
-        android:text="Create KML File (With TimeStamp)"
-        android:textSize="16sp" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/bKml2"
-        style="@style/button_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_gravity="center"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-        android:layout_weight="10"
-        android:background="@drawable/b_red"
-        android:text="Create KML File (Only Path)"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/bLogout"
-        style="@style/button_text"
-        android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_gravity="center"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-        android:layout_weight="10"
-        android:background="@drawable/b_red"
-        android:text="Logout"
-        android:textSize="22sp" />
+        <Button
+            android:id="@+id/bMap"
+            style="@style/button_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
+            android:gravity="center"
+            android:shadowColor="@color/common_signin_btn_light_text_pressed"
+            android:text="Open Map"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/bExit"
-        style="@style/button_text"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_gravity="center"
-        android:shadowColor="@color/common_signin_btn_light_text_pressed"
-        android:layout_weight="10"
-        android:background="@drawable/b_red"
-        android:text="Exit"
-        android:textSize="22sp" />
+        <Button
+            android:id="@+id/bKml1"
+            style="@style/button_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
+            android:shadowColor="@color/common_signin_btn_light_text_pressed"
+            android:text="Create KML File (With TimeStamp)"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bKml2"
+            style="@style/button_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
+            android:shadowColor="@color/common_signin_btn_light_text_pressed"
+            android:text="Create KML File (Only Path)"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bLogout"
+            style="@style/button_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
+            android:shadowColor="@color/common_signin_btn_light_text_pressed"
+            android:text="Logout"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/bExit"
+            style="@style/button_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
+            android:shadowColor="@color/common_signin_btn_light_text_pressed"
+            android:text="Exit"
+            android:textSize="22sp" />
+    </LinearLayout>
 
 </LinearLayout>

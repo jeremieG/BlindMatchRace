@@ -142,131 +142,161 @@
         android:layout_weight="50" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="100" >
+        android:weightSum="0" >
 
         <Button
             android:id="@+id/bBuoy1"
             style="@style/button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_1"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy2"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_2"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy3"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_3"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy4"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_4"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy5"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_5"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="100" >
+        android:weightSum="0" >
 
         <Button
             android:id="@+id/bBuoy6"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
+            style="@style/button_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_6"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy7"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
+            style="@style/button_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_7"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy8"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
+            style="@style/button_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_8"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy9"
-        style="@style/button_text"
-        android:background="@drawable/b_red"
+            style="@style/button_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_9"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/bBuoy10"
             style="@style/button_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/b_red"
             android:enabled="false"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
             android:text="@string/buoy_number_10"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
     </LinearLayout>
 

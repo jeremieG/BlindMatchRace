@@ -5,15 +5,15 @@
     <string name="action_settings">Settings</string>
 
     <!-- Strings related to admin activity -->
-    <string name="buoy_number_1">Buoy Num1</string>
-    <string name="buoy_number_2">Buoy Num2</string>
-    <string name="buoy_number_3">Buoy Num3</string>
-    <string name="buoy_number_4">Buoy Num4</string>
-    <string name="buoy_number_5">Buoy Num5</string>
-    <string name="buoy_number_6">Buoy Num6</string>
-    <string name="buoy_number_7">Buoy Num7</string>
-    <string name="buoy_number_8">Buoy Num8</string>
-    <string name="buoy_number_9">Buoy Num9</string>
-    <string name="buoy_number_10">Buoy Num10</string>
+    <string name="buoy_number_1">Buoy\nNum1</string>
+    <string name="buoy_number_2">Buoy\nNum2</string>
+    <string name="buoy_number_3">Buoy\nNum3</string>
+    <string name="buoy_number_4">Buoy\nNum4</string>
+    <string name="buoy_number_5">Buoy\nNum5</string>
+    <string name="buoy_number_6">Buoy\nNum6</string>
+    <string name="buoy_number_7">Buoy\nNum7</string>
+    <string name="buoy_number_8">Buoy\nNum8</string>
+    <string name="buoy_number_9">Buoy\nNum9</string>
+    <string name="buoy_number_10">Buoy\nNum10</string>
 
 </resources>
