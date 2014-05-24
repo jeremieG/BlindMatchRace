@@ -145,10 +145,10 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 		// Adds location button in the top-right screen.
 		googleMap.setMyLocationEnabled(true);
 
-		// Focus the camera on the latLng location.
+		/*// Focus the camera on the latLng location.
 		LatLng latLng = new LatLng(32.056286, 34.824598);
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, C.ZOOM_LEVEL);
-		googleMap.animateCamera(cameraUpdate);
+		googleMap.animateCamera(cameraUpdate);*/
 
 		// Initializing TextViews.
 		tvLat = (TextView) findViewById(R.id.tvLat);

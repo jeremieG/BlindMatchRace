@@ -1,8 +1,5 @@
 package com.blindmatchrace;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -21,7 +18,6 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -29,14 +25,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blindmatchrace.classes.C;
-import com.blindmatchrace.classes.GetBuoysTask;
 import com.blindmatchrace.classes.SendDataHThread;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -60,7 +54,6 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 	private GoogleMap googleMap;
 	private TextView tvLat, tvLng, tvUser, tvSpeed, tvDirection, tvEvent;
 	private Button bBuoy1, bBuoy2, bBuoy3, bBuoy4, bBuoy5, bBuoy6, bBuoy7, bBuoy8, bBuoy9, bBuoy10;
-	private Circle[] buoyRadiuses = new Circle[C.MAX_BUOYS];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -418,11 +411,11 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 			}
 		}).create().show();
 	}
-	
+
 	private void removeBuoyFromDB(String fullBuoyName) {
 		SendDataHThread thread = new SendDataHThread("RemoveBuoys", false);
 		thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
-		
+
 		thread.setFullUserName(fullBuoyName);
 		thread.start();
 	}

@@ -6,9 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.json.JSONArray;
@@ -33,6 +35,7 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 	private Context context;
 	private String name, fullUserName;
 	private int kmlVer;
+	private HashMap<LatLng, String[]> extraInfos;
 
 	public SaveKmlTask(Context context, String name, String fullUserName, int kmlVer) {
 		super();
@@ -40,11 +43,13 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 		this.name = name;
 		this.fullUserName = fullUserName;
 		this.kmlVer = kmlVer;
+		this.extraInfos = new HashMap<LatLng, String[]>();
 	}
 
 	@Override
 	protected Map<Long, LatLng> doInBackground(String... urls) {
 		Map<Long, LatLng> sortedLatLngs = new TreeMap<Long, LatLng>();
+		String[] azimBearing = new String[2];
 		try {
 			JSONObject jsonHistory = JsonReader.readJsonFromUrl(urls[0]);
 			JSONArray jsonArray = jsonHistory.getJSONArray("positions");
@@ -57,11 +62,14 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 						continue;
 					}
 					String time = jsonObj.getString("time");
+					azimBearing[0] = jsonObj.getString("azimuth");
+					azimBearing[1] = jsonObj.getString("bearing");
 					LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
 					// Adds sailor's data to TreeMap.
 					sortedLatLngs.put(Long.parseLong(time), latLng);
-
+					extraInfos.put(latLng, azimBearing);
+					
 					Log.i(fullUserName, "Lat: " + lat + ", Lng: " + lng);
 				}
 			}
@@ -77,10 +85,13 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 						break;
 					}
 					String time = jsonObj.getString("time");
+					azimBearing[0] = jsonObj.getString("azimuth");
+					azimBearing[1] = jsonObj.getString("bearing");
 					LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
 					// Adds sailor's last data to TreeMap.
 					sortedLatLngs.put(Long.parseLong(time), latLng);
+					extraInfos.put(latLng, azimBearing);
 
 					Log.i(fullUserName, "Lat: " + lat + ", Lng: " + lng);
 					break;
@@ -103,8 +114,11 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 		if (sortedLatLngs != null && sortedLatLngs.size() > 1) {
 			if (kmlVer == 1) {
 				Iterator<Map.Entry<Long, LatLng>> iter = sortedLatLngs.entrySet().iterator();
+				Iterator<Entry<LatLng, String[]>> iter2 = extraInfos.entrySet().iterator();
+				
 				Map.Entry<Long, LatLng> entry = (Map.Entry<Long, LatLng>) iter.next();
-
+				Entry<LatLng, String[]> entry2 = (Entry<LatLng, String[]>) iter2.next();
+				
 				// Builds the KML content.
 				StringBuilder kmlBuilder = new StringBuilder();
 				kmlBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -121,7 +135,10 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 				kmlBuilder.append("\t<Placemark>\n\t\t<name>FROM</name>\n\t\t<TimeStamp>\n");
 				long starttime = entry.getKey();
 				kmlBuilder.append("\t\t\t<when>" + String.valueOf(starttime) + "</when>\n\t\t</TimeStamp>\n");
-				kmlBuilder.append("\t\t<styleUrl>#style1</styleUrl>\n\t\t<Point>\n\t\t\t<coordinates>");
+				kmlBuilder.append("\t\t<styleUrl>#style1</styleUrl>\n\t\t<description>");
+				String azim = entry2.getValue()[0], bearing = entry2.getValue()[1];
+				kmlBuilder.append("Azimuth = " + azim + "\nBearing = " + bearing);
+				kmlBuilder.append("</description>\n\t\t<Point>\n\t\t\t<coordinates>");
 
 				// Starting coordinate.
 				double startLat = entry.getValue().latitude;
@@ -132,14 +149,21 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 				// Inserts all of path's coordinates.
 				while (iter.hasNext()) {
 					entry = (Map.Entry<Long, LatLng>) iter.next();
+					entry2 = (Entry<LatLng, String[]>) iter2.next();
 					if (!iter.hasNext()) {
 						break;
 					}
 					kmlBuilder.append("\t<Placemark>\n\t\t<TimeStamp>\n");
 					long time = entry.getKey();
 					kmlBuilder.append("\t\t\t<when>" + String.valueOf(time) + "</when>\n\t\t</TimeStamp>\n");
-					kmlBuilder.append("\t\t<styleUrl>#style2</styleUrl>\n\t\t<Point>\n\t\t\t<coordinates>");
-
+					kmlBuilder.append("\t\t<styleUrl>#style2</styleUrl>\n\t\t<description>");
+					
+					azim = entry2.getValue()[0];
+					bearing = entry2.getValue()[1];
+					
+					kmlBuilder.append("Azimuth = " + azim + "\nBearing = " + bearing);
+					kmlBuilder.append("</description>\n\t\t<Point>\n\t\t\t<coordinates>");
+					
 					double lat = entry.getValue().latitude;
 					double lng = entry.getValue().longitude;
 					kmlBuilder.append(String.valueOf(lng) + "," + String.valueOf(lat) + ",0.000000");
@@ -150,8 +174,13 @@ public class SaveKmlTask extends AsyncTask<String, Integer, Map<Long, LatLng>> {
 				kmlBuilder.append("\t<Placemark>\n\t\t<name>TO</name>\n\t\t<TimeStamp>\n");
 				long time = entry.getKey();
 				kmlBuilder.append("\t\t\t<when>" + String.valueOf(time) + "</when>\n\t\t</TimeStamp>\n");
-				kmlBuilder.append("\t\t<styleUrl>#style3</styleUrl>\n\t\t<Point>\n\t\t\t<coordinates>");
-
+				kmlBuilder.append("\t\t<styleUrl>#style3</styleUrl>\n\t\t<description>");
+				
+				azim = entry2.getValue()[0];
+				bearing = entry2.getValue()[1];
+				
+				kmlBuilder.append("Azimuth = " + azim + "\nBearing = " + bearing);
+				kmlBuilder.append("</description>\n\t\t<Point>\n\t\t\t<coordinates>");
 				// Inserts the latest destination reached.
 				double lat = entry.getValue().latitude;
 				double lng = entry.getValue().longitude;

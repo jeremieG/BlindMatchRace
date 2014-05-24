@@ -41,7 +41,7 @@ public class SendDataHThread extends HandlerThread {
 		try {
 			URL url;
 			if(add) {
-			url = new URL(C.URL_INSERT_CLIENT + "&Latitude=" + lat +"&Longitude=" + lng +"&Pressure="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing + "&Information=" + fullUserName + "&Event=" + event);
+				url = new URL(C.URL_INSERT_CLIENT + "&Latitude=" + lat +"&Longitude=" + lng +"&Pressure="+ speed + "&Azimuth="+ bearing + "&Bearing=" + bearing + "&Information=" + fullUserName + "&Event=" + event);
 			}
 			else {
 				url = new URL(C.URL_DELETE_CLIENT + "&Information=" + fullUserName);
