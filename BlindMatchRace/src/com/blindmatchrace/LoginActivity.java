@@ -336,7 +336,7 @@ public class LoginActivity extends Activity {
 					registerRequest = false;
 
 					// HandlerThread for creating a new user in the DB through thread.
-					SendDataHThread thread = new SendDataHThread("CreateNewUser");
+					SendDataHThread thread = new SendDataHThread("CreateNewUser", true);
 					thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
 					thread.setFullUserName(mUser + "_" + mPassword + "_" + mEvent);

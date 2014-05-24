@@ -1,8 +1,10 @@
 package com.blindmatchrace;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -183,11 +185,18 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	public void onLocationChanged(Location location) {
 		if (!disableLocation) {
 			// HandlerThread for sending the current location to DB.
-			SendDataHThread thread = new SendDataHThread("SendGPS");
+			SendDataHThread thread = new SendDataHThread("SendGPS", true);
 			thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
-			String lat = new DecimalFormat("##.######").format(location.getLatitude());
-			String lng = new DecimalFormat("##.######").format(location.getLongitude());
+			double dLat = location.getLatitude();
+			double dLong = location.getLongitude();
+			
+			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+			otherSymbols.setDecimalSeparator('.');
+			otherSymbols.setGroupingSeparator(','); 
+			
+			String lat = new DecimalFormat("##.######", otherSymbols).format(dLat);
+			String lng = new DecimalFormat("##.######", otherSymbols).format(dLong);
 			String speed = "" + location.getSpeed();
 			String bearing = "" + location.getBearing();
 

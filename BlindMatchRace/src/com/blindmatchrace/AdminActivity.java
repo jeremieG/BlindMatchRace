@@ -1,6 +1,11 @@
 package com.blindmatchrace;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +21,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -23,12 +29,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blindmatchrace.classes.C;
+import com.blindmatchrace.classes.GetBuoysTask;
 import com.blindmatchrace.classes.SendDataHThread;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -52,6 +60,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 	private GoogleMap googleMap;
 	private TextView tvLat, tvLng, tvUser, tvSpeed, tvDirection, tvEvent;
 	private Button bBuoy1, bBuoy2, bBuoy3, bBuoy4, bBuoy5, bBuoy6, bBuoy7, bBuoy8, bBuoy9, bBuoy10;
+	private Circle[] buoyRadiuses = new Circle[C.MAX_BUOYS];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -222,8 +231,10 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				bBuoy10.setEnabled(true);
 			}
 
-			String lat = new DecimalFormat("##.######").format(location.getLatitude());
-			String lng = new DecimalFormat("##.######").format(location.getLongitude());
+			double dLat = location.getLatitude();
+			double dLong = location.getLongitude();
+			String lat = new DecimalFormat("##.######").format(dLat);
+			String lng = new DecimalFormat("##.######").format(dLong);
 			String speed = "" + location.getSpeed();
 			String bearing = "" + location.getBearing();
 
@@ -234,7 +245,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 			tvDirection.setText(bearing);
 
 			// Adds currentPosition marker to the google map.
-			LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+			LatLng latLng = new LatLng(dLat, dLong);
 			if (currentPosition != null) {
 				currentPosition.remove();
 			}
@@ -278,19 +289,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 0);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #1 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[0].remove();
-						markArr[0] = null;
-						bBuoy1.setBackgroundColor(Color.WHITE);
-						greyedOut[0] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy1, 0);
 			}
 			break;
 		case R.id.bBuoy2:
@@ -302,19 +301,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 1);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #2 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[1].remove();
-						markArr[1] = null;
-						bBuoy2.setBackgroundColor(Color.WHITE);
-						greyedOut[1] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy2, 1);
 			}
 			break;
 		case R.id.bBuoy3:
@@ -326,19 +313,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 2);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #3 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[2].remove();
-						markArr[2] = null;
-						bBuoy3.setBackgroundColor(Color.WHITE);
-						greyedOut[2] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy3, 2);
 			}
 			break;
 		case R.id.bBuoy4:
@@ -350,19 +325,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 3);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #4 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[3].remove();
-						markArr[3] = null;
-						bBuoy4.setBackgroundColor(Color.WHITE);
-						greyedOut[3] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy4, 3);
 			}
 			break;
 		case R.id.bBuoy5:
@@ -374,19 +337,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 4);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #5 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[4].remove();
-						markArr[4] = null;
-						bBuoy5.setBackgroundColor(Color.WHITE);
-						greyedOut[4] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy5, 4);
 			}
 			break;
 		case R.id.bBuoy6:
@@ -398,19 +349,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 5);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #6 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[5].remove();
-						markArr[5] = null;
-						bBuoy6.setBackgroundColor(Color.WHITE);
-						greyedOut[5] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy6, 5);
 			}
 			break;
 		case R.id.bBuoy7:
@@ -422,19 +361,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 6);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #7 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[6].remove();
-						markArr[6] = null;
-						bBuoy7.setBackgroundColor(Color.WHITE);
-						greyedOut[6] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy7, 6);
 			}
 			break;
 		case R.id.bBuoy8:
@@ -446,19 +373,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 7);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #8 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[7].remove();
-						markArr[7] = null;
-						bBuoy8.setBackgroundColor(Color.WHITE);
-						greyedOut[7] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy8, 7);
 			}
 			break;
 		case R.id.bBuoy9:
@@ -470,19 +385,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 8);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #9 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[8].remove();
-						markArr[8] = null;
-						bBuoy9.setBackgroundColor(Color.WHITE);
-						greyedOut[8] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy9, 8);
 			}
 			break;
 		case R.id.bBuoy10:
@@ -494,31 +397,50 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 				addBuoy(fullBuoyName, 9);
 			}
 			else {
-				new AlertDialog.Builder(this)
-				.setTitle("Remove Marker?")
-				.setMessage("Do you want to remove buoy #10 from the map?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface arg0, int arg1) {
-						markArr[9].remove();
-						markArr[9] = null;
-						bBuoy10.setBackgroundColor(Color.WHITE);
-						greyedOut[9] = false;
-					}
-				}).create().show();
+				removeBuoy(bBuoy10, 9);
 			}
 			break;
 		}
 	}
+	private void removeBuoy(final View v, final int index) {
+		new AlertDialog.Builder(this)
+		.setTitle("Remove Marker?")
+		.setMessage("Do you want to remove buoy #" + (index + 1) + "from the map?")
+		.setNegativeButton(android.R.string.no, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
+			public void onClick(DialogInterface arg0, int arg1) {
+				markArr[index].remove();
+				markArr[index] = null;
+				v.setBackgroundColor(Color.WHITE);
+				greyedOut[index] = false;
+				removeBuoyFromDB(C.BUOY_PREFIX + (index + 1) + "_" + event);
+			}
+		}).create().show();
+	}
+	
+	private void removeBuoyFromDB(String fullBuoyName) {
+		SendDataHThread thread = new SendDataHThread("RemoveBuoys", false);
+		thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+		
+		thread.setFullUserName(fullBuoyName);
+		thread.start();
+	}
 	private void addBuoy(String fullBuoyName, int index) {
 		// HandlerThread for sending the buoy location to the DB through thread.
-		SendDataHThread thread = new SendDataHThread("SendBuoys");
+		SendDataHThread thread = new SendDataHThread("SendBuoys", true);
 		thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
-		String lat = new DecimalFormat("##.######").format(currentPosition.getPosition().latitude);
-		String lng = new DecimalFormat("##.######").format(currentPosition.getPosition().longitude);
+		double dLat = currentPosition.getPosition().latitude;
+		double dLong = currentPosition.getPosition().longitude;
+
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+		otherSymbols.setDecimalSeparator('.');
+		otherSymbols.setGroupingSeparator(','); 
+
+		String lat = new DecimalFormat("##.######", otherSymbols).format(dLat);
+		String lng = new DecimalFormat("##.######", otherSymbols).format(dLong);
+
 		String speed = "" + 0;
 		String bearing = "" + 0;
 
@@ -530,7 +452,7 @@ public class AdminActivity extends FragmentActivity implements LocationListener,
 		thread.setEvent(event);
 		thread.start();
 		// Adds a buoy on the map.
-		LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+		LatLng latLng = new LatLng(dLat, dLong);
 		markArr[index] = googleMap.addMarker(new MarkerOptions().position(latLng).title(fullBuoyName.split("_")[0]).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_buoy_low)));
 	}
 

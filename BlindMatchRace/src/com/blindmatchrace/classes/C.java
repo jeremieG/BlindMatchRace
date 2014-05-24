@@ -30,6 +30,7 @@ public class C {
 
 	// DB constants.
 	public static final String URL_INSERT_CLIENT = "http://kcg-lab.info/map-tracking-2d/services/insertClient.php?table=clients";
+	public static final String URL_DELETE_CLIENT = "http://kcg-lab.info/map-tracking-2d/services/deleteAll.php?table=clients";
 	public static final String URL_CLIENTS_TABLE = "http://kcg-lab.info/map-tracking-2d/services/json-clients.php?table=clients";
 	public static final String URL_HISTORY_TABLE = "http://kcg-lab.info/map-tracking-2d/services/json-clients.php?table=history";
 
